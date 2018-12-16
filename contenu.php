@@ -35,17 +35,6 @@ if (isset($_POST["save"])) {
                 $content[$key]["status"] = 0;
             }
         }
-/*     } else if (!isset($_POST["done"]) && isset($_POST["todo"])) {
-        foreach($content as $key => $task) {
-            foreach ($_POST["todo"] as $value) {
-                if ($task["id"] == $value) {
-                    $content[$key]["status"] = 1;                            Ce bout de code ne fonctionne pas
-                }
-            }
-            if ($task["status"] == 1) {
-                $content[$key]["status"] = 0;
-            }
-        } */
     }
     $json = json_encode($content);
     file_put_contents($file, $json);
@@ -55,7 +44,7 @@ if (isset($_POST["save"])) {
 
     <div class="toDoList">
         
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+        <form id="tdl" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
 
             <fieldset>
                 <legend>Tout doux :</legend>
@@ -63,7 +52,7 @@ if (isset($_POST["save"])) {
                 <?php
                 foreach($content as $task) {
                     if ($task["status"] == 0) {
-                        echo '<li><label><input type="checkbox" name="todo[]" value="'.$task["id"].'" id="'.$task["id"].'">&nbsp;'.$task["task"].'</label></li>';
+                        echo '<li><label><input class="task" type="checkbox" name="todo[]" value="'.$task["id"].'" id="'.$task["id"].'">&nbsp;'.$task["task"].'</label></li>';
                     }
                 };
                 ?>
@@ -77,14 +66,14 @@ if (isset($_POST["save"])) {
                 <?php
                 foreach($content as $task) {
                     if ($task["status"] == 1) {
-                        echo '<li><label><input type="checkbox" checked name="done[]" value="'.$task["id"].'" id="'.$task["id"].'">&nbsp;<del>'.$task["task"].'</del></label></li>';
+                        echo '<li><label><input class="task" type="checkbox" checked name="done[]" value="'.$task["id"].'" id="'.$task["id"].'">&nbsp;<del>'.$task["task"].'</del></label></li>';
                     }
                 }
                 ?>
                 </ul>
             </fieldset>
 
-                <button type="submit" name="save">Enregistrer</button>
+                <button type="submit" id ="save" name="save">Enregistrer</button>
         </form>
 
     </div>

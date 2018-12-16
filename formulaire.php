@@ -25,7 +25,8 @@ trimmed input isn't empty and page was not reloaded by "save" submit */
     }
     $json = json_encode($content); // Encodes php array into json
     file_put_contents($file, $json); // writes file with latest json
-} else {
+    $err = "";
+} else if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["save"]) && empty(trim($_POST["task"]))) {
     $err = 'placeholder="Vous devez entrer une tâche"';
 }
 
@@ -55,5 +56,6 @@ trimmed input isn't empty and page was not reloaded by "save" submit */
         </form>
     </div>
 
+    <script src="todo.js"></script>
 </body>
 </html>
